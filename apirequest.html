@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+        .container{
+            background-color: orange;
+            color: aliceblue;
+            display: flex;
+            justify-content: center;
+            justify-items: center;
+            align-items: center;
+            
+            /* text-align: center; */
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="image"></div>
+        <div id="follower">Followers : </div>
+        <button>fetch</button>
+    </div>
+    
+    <script>
+        const button=document.querySelector("button");
+        button.addEventListener('click',function(){
+        const url="https://api.github.com/users/hiteshchoudhary"
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET',url);
+        xhr.onreadystatechange= function(){
+            if(xhr.readyState === 4){
+                const data= JSON.parse(this.responseText);
+                document.querySelector('#follower').innerHTML += `<span>${data.followers}</span>`
+            
+               // document.querySelector('#image').innerHTML=`<img src=`
+               let img = document.createElement('img');
+               const images=document.querySelector('#image')
+               images.appendChild(img);
+               img.src= `${data.avatar_url} `
+            }
+        }
+        xhr.send();
+        })
+    
+    </script>
+</body>
+</html>
